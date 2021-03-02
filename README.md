@@ -6,21 +6,21 @@
   * If the player uncovers a bomb tile, the player loses and the game ends.
   * If the player uncovers a non-bomb tile (number) and there are remaining non-bomb tiles uncovered, the game continues. Otherwise, the player wins.
 ##Design constraints
-* The board should be an N x M grid and by default X hidden mines are randomly placed on the board. These parameters should be entered by the user before starting the game. The user should also be able to select between 3 pre-defined levels (easy, medium, hard).
-* The user should be able to mark a tile with a flag (right click) that points that the tile could contain a bomb. That tile should be disabled and the user shouldn't be able to click it.
-* The board header should display the remaining bombs in the game. This counter is modified when the user sets flags on the tiles.
-* The app should have routing for different pages (game setup, game board, finished games list, etc).
+1. The board should be an N x M grid and by default X hidden mines are randomly placed on the board. These parameters should be entered by the user before starting the game. The user should also be able to select between 3 pre-defined levels (easy, medium, hard).
+1. The user should be able to mark a tile with a flag (right click) that points that the tile could contain a bomb. That tile should be disabled and the user shouldn't be able to click it.
+1. The board header should display the remaining bombs in the game. This counter is modified when the user sets flags on the tiles.
+1. The app should have routing for different pages (game setup, game board, finished games list, etc).
 ##Additional encouraged features
 * Saving/loading (either server side or client side).
 * Unit tests.
 * Add a page that list all the games played by the user.
 * The table must still appear if the page is refreshed.
 * The columns
-* Start Time. Format: MM-DD-YYYY hh:mm (12hr format)
-* End Time: Format: MM-DD-YYYY hh:mm (12hr format)
-* Difficulty
-* Total time spent
-* Status: Won/Lost
+  * Start Time. Format: MM-DD-YYYY hh:mm (12hr format)
+  * End Time: Format: MM-DD-YYYY hh:mm (12hr format)
+  * Difficulty
+  * Total time spent
+  * Status: Won/Lost
 * Order records Difficulty and Total time spent. Ascending.
 * Multiplayer support.
 ##Technical constraints
