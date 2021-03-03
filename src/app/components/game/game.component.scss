@@ -1,0 +1,57 @@
+.Game {
+  table {
+    margin: 0 auto;
+    border-spacing: 0;
+    padding: 2rem;
+
+    td {
+      background-color: #B3B3B3;
+      text-align: center;
+      width: 3.2rem;
+      height: 3.2rem;
+      font-weight: 500;
+      border: 2px solid;
+      border-color: #F5F4F5 #717171 #717171 #F5F4F5;
+      cursor: pointer;
+
+      &.clear {
+        background-color: #bbb;
+        border-width: 1px;
+        border-color: #999;
+        cursor: default;
+        // https://i1.wp.com/www.crisgdwrites.com/wp-content/uploads/2016/06/minesweeper_tiles.jpg?fit=512%2C384
+        &-1 {
+          color: #0000FD;
+        }
+
+        &-2 {
+          color: #037D02
+        }
+
+        &-3 {
+          color: #FD0000;
+        }
+
+        &-4 {
+          color: #010180;
+        }
+
+        &-5 {
+          color: #810101;
+        }
+
+        &-6 {
+          color: #027F80;
+        }
+
+        &-8 {
+          color: #808080;
+        }
+      }
+
+    }
+
+  }
+}
+
+

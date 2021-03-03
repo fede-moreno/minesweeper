@@ -1,1 +1,23 @@
-<p>game works!</p>
+<div class="Game">
+
+  <table>
+    <thead>
+    <th [colSpan]="board.tiles[board.tiles.length - 1].length">
+      <button (click)="restartGame()">Face</button>
+    </th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let row of board.tiles">
+      <td *ngFor="let tile of row" (click)="handleTileClick(tile)" (contextmenu)="handleTileRightClick($event, tile)"
+          [class.clear]="tile.status === TileStatusesEnum.CLEAR"
+          [ngClass]="tile.status === TileStatusesEnum.CLEAR && !tile.hasMine ? 'clear-' + tile.neighborMines : ''">
+        <!--      TODO refactor with ng-templates for performance-->
+        <span
+          *ngIf="!tile.hasMine && tile.status === TileStatusesEnum.CLEAR && tile.neighborMines > 0 ">{{ tile.neighborMines }}</span>
+        <i *ngIf="tile.status === TileStatusesEnum.CLEAR && tile.hasMine " class="fas fa-bomb"></i>
+        <i *ngIf="tile.status === TileStatusesEnum.FLAGGED" class="fas fa-flag"></i>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
