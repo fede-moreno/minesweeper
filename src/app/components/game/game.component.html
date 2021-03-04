@@ -2,18 +2,21 @@
 
   <table>
     <thead>
-    <th [colSpan]="board.tiles[board.tiles.length - 1].length">
-      <div class="counter minesToFlag">
-        <label>{{ board.minesToFlag }}</label>
-      </div>
-      <button class="restartButton" type="button" (click)="restartGame()">
-        <img [src]="gameStatus === GameStatusesEnum.GAME_OVER ?  sadImgSrc :
+    <tr>
+      <th [colSpan]="board.tiles[board.tiles.length - 1].length">
+        <div class="counter minesToFlag">
+          <label>{{ board.minesToFlag }}</label>
+        </div>
+        <button class="restartButton" type="button" (click)="restartGame()">
+          <img [src]="gameStatus === GameStatusesEnum.GAME_OVER ?  sadImgSrc :
          gameStatus === GameStatusesEnum.WON ? happyImgSrc : boredImgSrc" alt="game-status"/>
-      </button>
-      <div class="counter time">
-        <label>{{ secondsUnderway > 0 ?  secondsUnderway : secondsUnderway > 999 ? '999' : '&nbsp;' }}</label> <!-- could easily be a pipe -->
-      </div>
-    </th>
+        </button>
+        <div class="counter time">
+          <label>{{ secondsUnderway > 0 ? secondsUnderway : secondsUnderway > 999 ? '∞' : '&nbsp;' }}</label>
+          <!-- could easily be a pipe -->
+        </div>
+      </th>
+    </tr>
     </thead>
     <tbody>
     <tr *ngFor="let row of board.tiles">
@@ -32,5 +35,15 @@
       </td>
     </tr>
     </tbody>
+    <tfoot>
+    <tr>
+      <td [colSpan]="board.tiles[board.tiles.length - 1].length">
+        <label class="gameSaved" *ngIf="showGameSavedMessage">Game saved!</label>
+        <button (click)="saveGame()" type="button" class="saveButton" [disabled]="gameStatus !== GameStatusesEnum.UNDERWAY">
+          <i class="fas fa-save"></i>
+        </button>
+      </td>
+    </tr>
+    </tfoot>
   </table>
 </div>

@@ -5,14 +5,14 @@
     padding: 2rem;
     font-weight: 700;
 
-    th {
+    thead th {
       border: 2px solid;
       border-color: #F5F4F5 #717171 #717171 #F5F4F5;
       background-color: #B3B3B3;
       padding: 0.2rem 1.2rem;
       vertical-align: middle;
 
-      .counter {
+      div.counter {
         display: inline-block;
         margin-top: 0.6rem;
         color: #ff6666;
@@ -23,9 +23,11 @@
         line-height: 1;
         text-align: right;
         padding: 0.2rem 0.6rem;
+
         &.minesToFlag {
           float: left;
         }
+
         &.time {
           float: right;
         }
@@ -38,19 +40,22 @@
         vertical-align: middle;
         border: 3px groove #eeeeee;
         background-color: #B3B3B3;
+
         &:focus {
           outline: none;
         }
+
         &:hover {
           background: #bbb;
         }
+
         img {
           padding: 0.6rem;
         }
       }
     }
 
-    td {
+    tbody td {
       background-color: #B3B3B3;
       text-align: center;
       width: 3.2rem;
@@ -101,6 +106,57 @@
       }
     }
 
+    tfoot td {
+      background-color: #B3B3B3;
+      border: 2px solid;
+      border-color: #F5F4F5 #717171 #717171 #F5F4F5;
+      padding: 0.2rem 1.2rem;
+      text-align: right;
+      overflow: hidden;
+
+      label {
+        display: inline-block;
+        font-family: 'DotGothic16', 'Times New Roman';
+        animation: move 3s ease-in-out;
+      }
+
+      @keyframes move {
+        0% {
+          transform: translate(66%, 0);
+          opacity: 0.05;
+        }
+        25% {
+          opacity: 0.2;
+        }
+        50% {
+          transform: translate(0%, 0);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(0, -33%);
+          opacity: 0;
+        }
+      }
+
+      .saveButton {
+        cursor: pointer;
+        height: 3.2rem;
+        width: 3.2rem;
+        vertical-align: middle;
+        border: 3px groove #eeeeee;
+        background-color: #B3B3B3;
+        font-size: 18px;
+        margin: 0.2rem 0.6rem;
+
+        &:focus {
+          outline: none;
+        }
+
+        &:hover {
+          background: #bbb;
+        }
+      }
+    }
   }
 }
 

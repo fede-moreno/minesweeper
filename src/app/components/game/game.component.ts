@@ -5,6 +5,8 @@ import { Tile } from './tile/tile';
 import { GameStatuses } from './enums/game-statuses.enum';
 import { interval, Subscription } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Game } from './models/game.model';
+import { LocalstorageKeys } from '../../enums/localstorage-keys.enum';
 
 @UntilDestroy()
 @Component({
@@ -17,9 +19,11 @@ export class GameComponent implements OnInit {
   TileStatusesEnum = TileStatuses;
   gameStatus: GameStatuses;
   GameStatusesEnum = GameStatuses;
-  startDate: Date | undefined;
+  startDate?: Date;
   countDownSubscription: Subscription | undefined;
   secondsUnderway = 0;
+  showGameSavedMessage = false;
+
   readonly boredImgSrc = '../../assets/images/bored.jpg';
   readonly sadImgSrc = '../../assets/images/sad.jpg';
   readonly happyImgSrc = '../../assets/images/happy.jpg';
@@ -41,27 +45,28 @@ export class GameComponent implements OnInit {
       }
       // Reveals the tile and gets the new status
       const gameStatus: GameStatuses = this.board.revealTile(tile);
-      if (gameStatus === GameStatuses.GAME_OVER || gameStatus === GameStatuses.WON) {
-        this.handleGameEnd(gameStatus);
-      }
       this.gameStatus = gameStatus;
+      if (gameStatus === GameStatuses.GAME_OVER || gameStatus === GameStatuses.WON) {
+        this.stopTimer();
+        this.saveToLocalStorage(LocalstorageKeys.HISTORY);
+      }
     }
   }
 
-  startTimer(): void {
+  private startTimer(): void {
     this.startDate = new Date();
     this.countDownSubscription = interval(1000).pipe(untilDestroyed(this)).subscribe(() => {
       // @ts-ignore
-      this.secondsUnderway = Math.floor((new Date().getTime() - this.startDate.getTime()) / 1000);
+      this.secondsUnderway = this.getElapsedTimeInSeconds(this.startDate);
     });
   }
 
-  stopTimer(): void {
-    this.countDownSubscription?.unsubscribe();
+  private getElapsedTimeInSeconds(startDate: Date): number {
+    return Math.floor((new Date().getTime() - startDate.getTime()) / 1000)
   }
 
-  handleGameEnd(gameStatus: GameStatuses): void {
-    this.stopTimer();
+  private stopTimer(): void {
+    this.countDownSubscription?.unsubscribe();
   }
 
   handleTileRightClick(event: MouseEvent, tile: Tile) {
@@ -74,5 +79,29 @@ export class GameComponent implements OnInit {
     this.secondsUnderway = 0;
     this.board = new Board(8, 8, 12);
     this.gameStatus = GameStatuses.NEW;
+  }
+
+  saveGame(): void {
+    this.showGameSavedMessage = true;
+    this.gameStatus = GameStatuses.SAVING;
+    this.saveToLocalStorage(LocalstorageKeys.SAVED_GAMES);
+
+    setTimeout(() => { // Fakes saving time
+      this.showGameSavedMessage = false;
+      this.gameStatus = GameStatuses.UNDERWAY;
+    }, 3000);
+  }
+
+  private saveToLocalStorage(saveType: LocalstorageKeys): void {
+    const games: Game[] = JSON.parse(<string> localStorage.getItem(saveType));
+    const currentGame: Game = {
+      difficulty: 3,
+      status: this.gameStatus,
+      startDate: this.startDate,
+      endDate: new Date(),
+      elapsedTime: this.secondsUnderway,
+      board: saveType === LocalstorageKeys.SAVED_GAMES ? this.board : undefined
+    };
+    localStorage.setItem(saveType, games ? JSON.stringify([...games, currentGame]) : JSON.stringify([currentGame]));
   }
 }

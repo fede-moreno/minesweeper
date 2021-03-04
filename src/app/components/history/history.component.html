@@ -1,1 +1,32 @@
-<p>history works!</p>
+<div class="History">
+  <table class="History-table" *ngIf="this.games else noHistory">
+    <thead>
+    <tr>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Difficulty</th>
+      <th>Total time spent</th>
+      <th>Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let game of games">
+      <td>{{ game.startDate | date:'MM-dd-YYYY hh:mm' }}</td>
+      <td>{{ game.endDate | date:'MM-dd-YYYY hh:mm a' }}</td>
+      <td>{{ game.difficulty }}</td>
+      <td>{{ game.elapsedTime }} seconds</td>
+      <td>{{ game.status === GameStatusesEnum.WON ? 'Won' : 'Lost' }}</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="5">
+        <button type="button" (click)="clearHistory()">Clear History</button>
+      </td>
+    </tr>
+    </tfoot>
+  </table>
+  <ng-template #noHistory>
+    <h4 class="History-no">No history available. Play some games!</h4>
+  </ng-template>
+</div>
