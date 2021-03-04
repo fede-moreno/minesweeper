@@ -1,4 +1,4 @@
-import { Tile } from './tile.model';
+import { Tile } from '../tile/tile';
 import { TileStatuses } from '../enums/tile-statuses.enum';
 import { NEIGHBOR_TILES } from '../consts/neighbor-tiles.const';
 import { GameStatuses } from '../enums/game-statuses.enum';
@@ -6,6 +6,7 @@ import { GameStatuses } from '../enums/game-statuses.enum';
 export class Board {
   tiles: Tile[][] = [];
   undiscoveredTilesToWin: number;
+  minesToFlag = 0;
 
   //  Column x, Row y
   constructor(width: number, height: number, minesQuantity: number) {
@@ -16,6 +17,7 @@ export class Board {
       }
     }
     this.undiscoveredTilesToWin = (width * height) - minesQuantity;
+    this.minesToFlag = minesQuantity;
     this.setMines(minesQuantity);
     this.calculateProximity(width, height);
 
@@ -31,7 +33,7 @@ export class Board {
     }
   }
 
-  calculateProximity(width: number, height: number) {
+  calculateProximity(width: number, height: number): void  {
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         let neighborMines = 0;
@@ -52,10 +54,10 @@ export class Board {
 
 
   revealTile(tile: Tile): GameStatuses {
-    console.log(this.undiscoveredTilesToWin)
     if (tile.status === TileStatuses.OPEN) {
       if (tile.hasMine) {
         this.revealAllMines();
+        tile.status = TileStatuses.EXPLODED;
         return GameStatuses.GAME_OVER;
       } else {
         tile.status = TileStatuses.CLEAR;
@@ -89,15 +91,13 @@ export class Board {
     }
   }
 
-  flagTile(tile: Tile) {
+  flagTile(tile: Tile): void {
     if (tile.status === TileStatuses.OPEN) {
+      this.minesToFlag--;
       tile.status = TileStatuses.FLAGGED;
     } else if (tile.status === TileStatuses.FLAGGED) {
       tile.status = TileStatuses.OPEN;
+      this.minesToFlag++;
     }
-  }
-
-  gameOver() {
-
   }
 }

@@ -3,22 +3,69 @@
     margin: 0 auto;
     border-spacing: 0;
     padding: 2rem;
+    font-weight: 700;
+
+    th {
+      border: 2px solid;
+      border-color: #F5F4F5 #717171 #717171 #F5F4F5;
+      background-color: #B3B3B3;
+      padding: 0.2rem 1.2rem;
+      vertical-align: middle;
+
+      .counter {
+        display: inline-block;
+        margin-top: 0.6rem;
+        color: #ff6666;
+        background-color: #000;
+        width: 3em;
+        border: 1px inset #eeeeee;
+        font-size: 2.4rem;
+        line-height: 1;
+        text-align: right;
+        padding: 0.2rem 0.6rem;
+        &.minesToFlag {
+          float: left;
+        }
+        &.time {
+          float: right;
+        }
+      }
+
+      .restartButton {
+        cursor: pointer;
+        height: 4.4rem;
+        width: 4.4rem;
+        vertical-align: middle;
+        border: 3px groove #eeeeee;
+        background-color: #B3B3B3;
+        &:focus {
+          outline: none;
+        }
+        &:hover {
+          background: #bbb;
+        }
+        img {
+          padding: 0.6rem;
+        }
+      }
+    }
 
     td {
       background-color: #B3B3B3;
       text-align: center;
       width: 3.2rem;
       height: 3.2rem;
-      font-weight: 500;
       border: 2px solid;
       border-color: #F5F4F5 #717171 #717171 #F5F4F5;
       cursor: pointer;
 
-      &.clear {
+      &.revealed {
         background-color: #bbb;
-        border-width: 1px;
-        border-color: #999;
+        border: 1px solid #999;
         cursor: default;
+      }
+
+      .clear {
         // https://i1.wp.com/www.crisgdwrites.com/wp-content/uploads/2016/06/minesweeper_tiles.jpg?fit=512%2C384
         &-1 {
           color: #0000FD;
@@ -49,6 +96,9 @@
         }
       }
 
+      .exploded {
+        color: #ff0000;
+      }
     }
 
   }

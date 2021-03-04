@@ -3,19 +3,32 @@
   <table>
     <thead>
     <th [colSpan]="board.tiles[board.tiles.length - 1].length">
-      <button (click)="restartGame()">Face</button>
+      <div class="counter minesToFlag">
+        <label>{{ board.minesToFlag }}</label>
+      </div>
+      <button class="restartButton" type="button" (click)="restartGame()">
+        <img [src]="gameStatus === GameStatusesEnum.GAME_OVER ?  sadImgSrc :
+         gameStatus === GameStatusesEnum.WON ? happyImgSrc : boredImgSrc" alt="game-status"/>
+      </button>
+      <div class="counter time">
+        <label>{{ secondsUnderway > 0 ?  secondsUnderway : secondsUnderway > 999 ? '999' : '&nbsp;' }}</label> <!-- could easily be a pipe -->
+      </div>
     </th>
     </thead>
     <tbody>
     <tr *ngFor="let row of board.tiles">
       <td *ngFor="let tile of row" (click)="handleTileClick(tile)" (contextmenu)="handleTileRightClick($event, tile)"
-          [class.clear]="tile.status === TileStatusesEnum.CLEAR"
-          [ngClass]="tile.status === TileStatusesEnum.CLEAR && !tile.hasMine ? 'clear-' + tile.neighborMines : ''">
-        <!--      TODO refactor with ng-templates for performance-->
-        <span
-          *ngIf="!tile.hasMine && tile.status === TileStatusesEnum.CLEAR && tile.neighborMines > 0 ">{{ tile.neighborMines }}</span>
-        <i *ngIf="tile.status === TileStatusesEnum.CLEAR && tile.hasMine " class="fas fa-bomb"></i>
-        <i *ngIf="tile.status === TileStatusesEnum.FLAGGED" class="fas fa-flag"></i>
+          [class.revealed]="tile.status === TileStatusesEnum.CLEAR || tile.status === TileStatusesEnum.EXPLODED">
+        <!-- if only there was a way for parent selectors -->
+        <ng-container [ngSwitch]="tile.status">
+          <i *ngSwitchCase="TileStatusesEnum.EXPLODED" class="fas fa-bomb exploded"></i>
+          <i *ngSwitchCase="TileStatusesEnum.FLAGGED" class="fas fa-flag"></i>
+          <ng-container *ngSwitchCase="TileStatusesEnum.CLEAR">
+            <i *ngIf="tile.hasMine" class="fas fa-bomb"></i>
+            <span *ngIf="!tile.hasMine && tile.neighborMines > 0 "
+                  [class]="'clear-' + tile.neighborMines">{{ tile.neighborMines }}</span>
+          </ng-container>
+        </ng-container>
       </td>
     </tr>
     </tbody>

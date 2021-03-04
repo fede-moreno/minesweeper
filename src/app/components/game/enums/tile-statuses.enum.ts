@@ -1,5 +1,6 @@
 export enum TileStatuses {
   OPEN = 'open',
   CLEAR = 'clear',
-  FLAGGED = 'flagged'
+  FLAGGED = 'flagged',
+  EXPLODED = 'exploded'
 }
