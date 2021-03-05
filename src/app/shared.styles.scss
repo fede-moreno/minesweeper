@@ -1,9 +1,19 @@
 // Variables
 $msp-font-face-1: 'Inter', sans-serif;
 $msp-font-face-2:  'DotGothic16', 'Times New Roman';
+$msp-color-error: #B00020;
+$msp-color-dark-grey: rgb(22, 27, 34);
+$msp-color-dark-grey-active: rgba(22, 27, 34, 0.7);
+$msp-color-light-grey: rgb(240, 246, 252);
+$msp-color-light-grey-active: rgba(240, 246, 252, 0.7);
+$msp-content-spacing: 1.5rem;
+$msp-content-spacing-small: 0.5rem;
+$msp-text-shadow: 1px 1px 4px #6a6a6a;
+$msp-text-shadow-highlight: 4px 4px 4px #414141;
 
 // Mixins
 @mixin msp-background {
+  height: 100vh;
   background-color: white;
   background-image:
     repeating-linear-gradient(-45deg, transparent, transparent 33%, #027F80 0%, #027F80 50%),
@@ -13,3 +23,45 @@ $msp-font-face-2:  'DotGothic16', 'Times New Roman';
   background-size: 4px 4px;
   background-position: -1px, 2px, 1px 1px;
 }
+
+@mixin iconButton($light-theme: false) {
+  border: none;
+  background: none;
+  cursor: pointer;
+
+  @if $light-theme {
+    color: $msp-color-dark-grey;
+    &:hover {
+      color: $msp-color-dark-grey-active;
+    }
+  } @else {
+    color: $msp-color-light-grey;
+    &:hover {
+      color: $msp-color-light-grey-active;
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+@mixin msp-header {
+  background-color: $msp-color-dark-grey;
+  color: $msp-color-light-grey;
+  text-align: center;
+  padding: $msp-content-spacing;
+
+  button.backButton {
+    font-size: 2.4rem;
+    @include iconButton();
+    float: left;
+  }
+
+  h1 {
+    font-size: 2.4rem;
+    text-align: center;
+  }
+}
+
+

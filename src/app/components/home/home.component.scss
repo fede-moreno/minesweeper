@@ -1,6 +1,5 @@
 @import '../../shared.styles';
 .Home {
-  height: 100vh;
   @include msp-background;
 
   &-container {
@@ -15,9 +14,12 @@
       font-size: 2.4rem;
       color: #390339;
       padding-bottom: 0.6rem;
+      transition: 0.3s;
+      text-shadow: $msp-text-shadow;
 
       &:hover {
         font-size:3.8rem;
+        text-shadow: $msp-text-shadow-highlight
       }
     }
   }

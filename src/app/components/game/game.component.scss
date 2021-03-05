@@ -1,4 +1,9 @@
+@import '../../shared.styles';
 .Game {
+  @include msp-background;
+  &-header {
+    @include msp-header;
+  }
   table {
     margin: 0 auto;
     border-spacing: 0;

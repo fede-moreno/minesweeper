@@ -1,6 +1,7 @@
 <div class="Settings">
   <div class="Settings-header">
-
+    <button class="backButton" (click)="goHome()"><i class="fas fa-arrow-left"></i></button>
+    <h1>Settings</h1>
   </div>
   <div class="Settings-container">
     <form [formGroup]="settingsFormGroup" (ngSubmit)="saveSettings()">
@@ -20,9 +21,7 @@
       <label for="minesQuantity">Mines</label>
       <input type="number" min="1" max="200" id="minesQuantity" formControlName="minesQuantity"
              [readOnly]="settingsFormGroup.controls.difficulty.value != DifficultyEnum.CUSTOM">
-      {{settingsFormGroup.controls.difficulty.value}}
-      {{settingsFormGroup.controls.difficulty.value !== DifficultyEnum.CUSTOM}}
-      <p class="Settings-container-errors" *ngIf="settingsFormGroup.invalid">
+      <p class="errors" *ngIf="settingsFormGroup.invalid">
         <!--   TODO improve error messages -->
         Invalid settings.
       </p>

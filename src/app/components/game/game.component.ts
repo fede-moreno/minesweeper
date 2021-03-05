@@ -9,6 +9,8 @@ import { Game } from './models/game.model';
 import { LocalstorageKeys } from '../../enums/localstorage-keys.enum';
 import { SettingsStateService } from '../../services/settings-state.service';
 import { Settings } from '../../models/settings.model';
+import { AppPages } from '../../enums/app-pages.enum';
+import { Router } from '@angular/router';
 
 @UntilDestroy()
 @Component({
@@ -29,7 +31,7 @@ export class GameComponent implements OnInit {
   readonly sadImgSrc = '../../assets/images/sad.jpg';
   readonly happyImgSrc = '../../assets/images/happy.jpg';
 
-  constructor(private settingsStateService: SettingsStateService) {
+  constructor(private settingsStateService: SettingsStateService, private router: Router) {
     this.board = this.startNewGame();
   }
 
@@ -109,5 +111,12 @@ export class GameComponent implements OnInit {
       board: saveType === LocalstorageKeys.SAVED_GAMES ? this.board : undefined
     };
     localStorage.setItem(saveType, games ? JSON.stringify([...games, currentGame]) : JSON.stringify([currentGame]));
+  }
+
+  /**
+   * Navigates back to home page
+   */
+  goHome(): void {
+    this.router.navigate([AppPages.HOME]);
   }
 }

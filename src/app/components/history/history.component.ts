@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Game } from '../game/models/game.model';
 import { LocalstorageKeys } from '../../enums/localstorage-keys.enum';
 import { GameStatuses } from '../game/enums/game-statuses.enum';
+import { AppPages } from '../../enums/app-pages.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-history',
@@ -12,7 +14,7 @@ export class HistoryComponent implements OnInit {
   games?: Game[];
   GameStatusesEnum = GameStatuses;
 
-  constructor() { }
+  constructor(private router: Router) { }
   ngOnInit(): void {
     this.games = JSON.parse(<string> localStorage.getItem(LocalstorageKeys.HISTORY));
     if (this.games && this.games.length > 1) {
@@ -24,6 +26,13 @@ export class HistoryComponent implements OnInit {
   clearHistory(): void {
     localStorage.removeItem(LocalstorageKeys.HISTORY);
     this.games = [];
+  }
+
+  /**
+   * Navigates back to home page
+   */
+  goHome(): void {
+    this.router.navigate([AppPages.HOME]);
   }
 
 

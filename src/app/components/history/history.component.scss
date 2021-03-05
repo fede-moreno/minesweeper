@@ -1,0 +1,31 @@
+@import '../../shared.styles';
+
+.History {
+  @include msp-background;
+
+  &-header {
+    @include msp-header;
+
+    .eraseButton {
+      font-size: 2.4rem;
+      @include iconButton();
+      float: right;
+
+      &[disabled] {
+        cursor: default;
+        color: $msp-color-light-grey-active;
+        &:hover {
+          color: $msp-color-light-grey-active;
+        }
+      }
+    }
+  }
+
+  &-container {
+    .noHistory {
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+  }
+}
