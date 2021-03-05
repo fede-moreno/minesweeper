@@ -1,1 +1,32 @@
-<p>settings works!</p>
+<div class="Settings">
+  <div class="Settings-header">
+
+  </div>
+  <div class="Settings-container">
+    <form [formGroup]="settingsFormGroup" (ngSubmit)="saveSettings()">
+      <label for="difficulty">Difficulty</label>
+      <select name="difficulty" id="difficulty" formControlName="difficulty">
+        <option [value]="DifficultyEnum.EASY">Easy</option>
+        <option [value]="DifficultyEnum.MEDIUM">Medium</option>
+        <option [value]="DifficultyEnum.HARD">Hard</option>
+        <option [value]="DifficultyEnum.CUSTOM">Custom</option>
+      </select>
+      <label for="boardWidth">Width</label>
+      <input type="number" min="4" max="100" id="boardWidth" formControlName="boardWidth"
+             [readOnly]="settingsFormGroup.controls.difficulty.value != DifficultyEnum.CUSTOM">
+      <label for="boardHeight">Height</label>
+      <input type="number" min="4" max="100" id="boardHeight" formControlName="boardHeight"
+             [readOnly]="settingsFormGroup.controls.difficulty.value != DifficultyEnum.CUSTOM">
+      <label for="minesQuantity">Mines</label>
+      <input type="number" min="1" max="200" id="minesQuantity" formControlName="minesQuantity"
+             [readOnly]="settingsFormGroup.controls.difficulty.value != DifficultyEnum.CUSTOM">
+      {{settingsFormGroup.controls.difficulty.value}}
+      {{settingsFormGroup.controls.difficulty.value !== DifficultyEnum.CUSTOM}}
+      <p class="Settings-container-errors" *ngIf="settingsFormGroup.invalid">
+        <!--   TODO improve error messages -->
+        Invalid settings.
+      </p>
+      <button type="submit" class="saveButton" [disabled]="!settingsFormGroup.valid">Save and get back</button>
+    </form>
+  </div>
+</div>

@@ -71,7 +71,9 @@ export class GameComponent implements OnInit {
 
   handleTileRightClick(event: MouseEvent, tile: Tile) {
     event.preventDefault();
-    this.board.flagTile(tile);
+    if (this.gameStatus === GameStatuses.UNDERWAY) {
+      this.board.flagTile(tile);
+    }
   }
 
   restartGame(): void {

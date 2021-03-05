@@ -1,0 +1,15 @@
+// Variables
+$msp-font-face-1: 'Inter', sans-serif;
+$msp-font-face-2:  'DotGothic16', 'Times New Roman';
+
+// Mixins
+@mixin msp-background {
+  background-color: white;
+  background-image:
+    repeating-linear-gradient(-45deg, transparent, transparent 33%, #027F80 0%, #027F80 50%),
+    repeating-linear-gradient(-45deg, transparent, transparent 33%, white 0%, white 50%),
+    repeating-linear-gradient(-45deg, transparent, transparent 33%, white 0%, white 50%),
+    repeating-linear-gradient(45deg, transparent, transparent 33%, #027F80 0%, #027F80 50%);
+  background-size: 4px 4px;
+  background-position: -1px, 2px, 1px 1px;
+}

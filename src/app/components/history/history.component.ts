@@ -23,6 +23,8 @@ export class HistoryComponent implements OnInit {
 
   clearHistory(): void {
     localStorage.removeItem(LocalstorageKeys.HISTORY);
+    this.games = [];
   }
+
 
 }

@@ -1,0 +1,24 @@
+@import '../../shared.styles';
+.Home {
+  height: 100vh;
+  @include msp-background;
+
+  &-container {
+    text-align: center;
+    font-family: $msp-font-face-2;
+    h1 {
+      padding: 4rem 0;
+    }
+    a {
+      display: block;
+      text-decoration: none;
+      font-size: 2.4rem;
+      color: #390339;
+      padding-bottom: 0.6rem;
+
+      &:hover {
+        font-size:3.8rem;
+      }
+    }
+  }
+}
