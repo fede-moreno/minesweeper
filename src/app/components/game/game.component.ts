@@ -11,6 +11,7 @@ import { SettingsStateService } from '../../services/settings-state.service';
 import { Settings } from '../../models/settings.model';
 import { AppPages } from '../../enums/app-pages.enum';
 import { Router } from '@angular/router';
+import { Difficulty } from '../../enums/difficulty.enum';
 
 @UntilDestroy()
 @Component({
@@ -26,18 +27,33 @@ export class GameComponent implements OnInit {
   startDate?: Date;
   countDownSubscription: Subscription | undefined;
   secondsUnderway = 0;
+  previousSeconds = 0;
   showGameSavedMessage = false;
+  gameDifficulty: Difficulty;
+
   readonly boredImgSrc = '../../assets/images/bored.jpg';
   readonly sadImgSrc = '../../assets/images/sad.jpg';
   readonly happyImgSrc = '../../assets/images/happy.jpg';
 
   constructor(private settingsStateService: SettingsStateService, private router: Router) {
-    this.board = this.startNewGame();
+    if (this.router.getCurrentNavigation()?.extras?.state) {
+      // @ts-ignore
+      const state: Game = this.router.getCurrentNavigation().extras.state;
+      // @ts-ignore
+      this.board = new Board(0,0,0, state.board); // This could be improved by using a service
+      this.gameDifficulty = state.difficulty;
+      this.previousSeconds = state.elapsedTime;
+      this.gameStatus = GameStatuses.SAVED;
+    } else {
+      this.board = this.startNewGame();
+      this.gameDifficulty = this.settingsStateService.state.difficulty;
+    }
   }
 
   ngOnInit(): void {
 
   }
+
 
   private startNewGame(): Board {
     const settings: Settings = this.settingsStateService.state;
@@ -46,15 +62,16 @@ export class GameComponent implements OnInit {
   }
 
   handleTileClick(tile: Tile): void {
-    if (this.gameStatus === GameStatuses.NEW || this.gameStatus === GameStatuses.UNDERWAY) {
+    if (this.gameStatus === GameStatuses.NEW || this.gameStatus === GameStatuses.UNDERWAY || this.gameStatus === GameStatuses.SAVED) {
       // Starts the timer for every new game
-      if (this.gameStatus === GameStatuses.NEW) {
+      if (this.gameStatus === GameStatuses.NEW || this.gameStatus === GameStatuses.SAVED) {
         this.startTimer();
       }
+
       // Reveals the tile and gets the new status
-      const gameStatus: GameStatuses = this.board.revealTile(tile);
-      this.gameStatus = gameStatus;
-      if (gameStatus === GameStatuses.GAME_OVER || gameStatus === GameStatuses.WON) {
+      const newGameStatus: GameStatuses = this.board.revealTile(tile);
+      this.gameStatus = newGameStatus;
+      if (newGameStatus === GameStatuses.GAME_OVER || newGameStatus === GameStatuses.WON) {
         this.stopTimer();
         this.saveToLocalStorage(LocalstorageKeys.HISTORY);
       }
@@ -65,7 +82,7 @@ export class GameComponent implements OnInit {
     this.startDate = new Date();
     this.countDownSubscription = interval(1000).pipe(untilDestroyed(this)).subscribe(() => {
       // @ts-ignore
-      this.secondsUnderway = this.getElapsedTimeInSeconds(this.startDate);
+      this.secondsUnderway = this.getElapsedTimeInSeconds(this.startDate) + this.previousSeconds;
     });
   }
 
@@ -87,23 +104,31 @@ export class GameComponent implements OnInit {
   restartGame(): void {
     this.stopTimer();
     this.board = this.startNewGame();
+    this.previousSeconds = 0;
+    this.secondsUnderway = 0;
   }
 
+  /**
+   * Displays saving message for 3seconds, sets the game status to SAVING so the user can't interact with the board
+   * saves the elapsed time (seconds), stores the game to localstorage and finally sets the game status to SAVED.
+   */
   saveGame(): void {
     this.showGameSavedMessage = true;
     this.gameStatus = GameStatuses.SAVING;
+    this.previousSeconds = this.secondsUnderway;
+    this.stopTimer();
     this.saveToLocalStorage(LocalstorageKeys.SAVED_GAMES);
 
     setTimeout(() => { // Fakes saving time
       this.showGameSavedMessage = false;
-      this.gameStatus = GameStatuses.UNDERWAY;
+      this.gameStatus = GameStatuses.SAVED;
     }, 3000);
   }
 
   private saveToLocalStorage(saveType: LocalstorageKeys): void {
     const games: Game[] = JSON.parse(<string> localStorage.getItem(saveType));
     const currentGame: Game = {
-      difficulty: this.settingsStateService.state.difficulty,
+      difficulty: this.gameDifficulty,
       status: this.gameStatus,
       startDate: this.startDate,
       endDate: new Date(),

@@ -3,5 +3,6 @@ export enum GameStatuses {
   UNDERWAY = 'underway',
   WON = 'won',
   GAME_OVER = 'game_over',
-  SAVING = 'saving'
+  SAVING = 'saving',
+  SAVED = 'saved'
 }

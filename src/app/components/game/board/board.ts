@@ -2,6 +2,7 @@ import { Tile } from '../tile/tile';
 import { TileStatuses } from '../enums/tile-statuses.enum';
 import { NEIGHBOR_TILES } from '../consts/neighbor-tiles.const';
 import { GameStatuses } from '../enums/game-statuses.enum';
+import { Game } from '../models/game.model';
 
 export class Board {
   tiles: Tile[][] = [];
@@ -9,17 +10,23 @@ export class Board {
   minesToFlag = 0;
 
   //  Column x, Row y
-  constructor(width: number, height: number, minesQuantity: number) {
-    for (let y = 0; y < height; y++) {
-      this.tiles[y] = [];
-      for (let x = 0; x < width; x++) {
-        this.tiles[y][x] = new Tile(x, y);
+  constructor(width: number, height: number, minesQuantity: number, previousBoard?: Board, ) {
+    if (previousBoard) {
+      this.tiles = previousBoard.tiles;
+      this.undiscoveredTilesToWin = previousBoard.undiscoveredTilesToWin;
+      this.minesToFlag = previousBoard.minesToFlag;
+    } else {
+      for (let y = 0; y < height; y++) {
+        this.tiles[y] = [];
+        for (let x = 0; x < width; x++) {
+          this.tiles[y][x] = new Tile(x, y);
+        }
       }
+      this.undiscoveredTilesToWin = (width * height) - minesQuantity;
+      this.minesToFlag = minesQuantity;
+      this.setMines(minesQuantity);
+      this.calculateProximity(width, height);
     }
-    this.undiscoveredTilesToWin = (width * height) - minesQuantity;
-    this.minesToFlag = minesQuantity;
-    this.setMines(minesQuantity);
-    this.calculateProximity(width, height);
 
   }
 

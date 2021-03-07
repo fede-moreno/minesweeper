@@ -1,1 +1,39 @@
-<p>saved-games works!</p>
+<div class="SavedGames">
+  <div class="SavedGames-header">
+    <button class="backButton" (click)="goHome()"><i class="fas fa-arrow-left"></i></button>
+    <h1>Saved Games</h1>
+  </div>
+  <div class="SavedGames-container">
+    <table *ngIf="this.games?.length else noSavedGames">
+      <thead>
+      <tr>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Difficulty</th>
+        <th>Total time spent</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let game of games; index as i">
+        <td class="startDate">{{ game.startDate | date:'MM-dd-YYYY hh:mm a' }}</td>
+        <td class="endDate">{{ game.endDate | date:'MM-dd-YYYY hh:mm a' }}</td>
+        <ng-container [ngSwitch]="game.difficulty">
+          <td class="difficulty" *ngSwitchCase="DifficultyEnum.EASY">Easy</td>
+          <td class="difficulty" *ngSwitchCase="DifficultyEnum.MEDIUM">Medium</td>
+          <td class="difficulty" *ngSwitchCase="DifficultyEnum.HARD">Hard</td>
+          <td class="difficulty" *ngSwitchDefault>Custom</td>
+        </ng-container>
+        <td class="elapsedTime">{{ game.elapsedTime }} seconds</td>
+        <td class="actions">
+          <button type="button" class="loadButton" (click)="loadGame(game)"><i class="far fa-save"></i></button>
+          <button type="button" class="eraseButton" (click)="eraseGame(i)"><i class="fas fa-eraser"></i></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <ng-template #noSavedGames>
+      <h4 class="noSavedGames">No saved games.</h4>
+    </ng-template>
+  </div>
+</div>

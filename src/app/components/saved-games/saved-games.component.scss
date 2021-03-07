@@ -1,0 +1,44 @@
+@import '../../shared.styles';
+
+.SavedGames {
+@include msp-background;
+
+  &-header {
+  @include msp-header;
+  }
+
+  &-container {
+    table {
+      margin: $msp-content-spacing-big auto;
+      background-color: #F6F6F6;
+      border: 1px solid #fff;
+      td, th {
+        padding: $msp-content-spacing-small;
+      }
+
+      tbody {
+        tr {
+          td {
+            &.difficulty, &.status {
+              text-align: center;
+            }
+            &.startDate, &.endDate, &.elapsedTime {
+              text-align: right;
+            }
+
+            .loadButton, .eraseButton {
+              @include iconButton(true);
+              font-size: 2rem;
+              padding: 0 $msp-content-spacing-small;
+            }
+          }
+        }
+      }
+    }
+    .noSavedGames {
+      text-align: center;
+      padding: $msp-content-spacing-big 0;
+    }
+  }
+
+}
