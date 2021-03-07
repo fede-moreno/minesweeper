@@ -63,6 +63,8 @@
       .errors {
         color: $msp-color-error;
         font-size: 1.4rem;
+        font-weight: 700;
+        text-shadow: $msp-text-shadow;
       }
     }
   }

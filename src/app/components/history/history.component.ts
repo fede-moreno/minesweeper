@@ -4,6 +4,7 @@ import { LocalstorageKeys } from '../../enums/localstorage-keys.enum';
 import { GameStatuses } from '../game/enums/game-statuses.enum';
 import { AppPages } from '../../enums/app-pages.enum';
 import { Router } from '@angular/router';
+import { Difficulty } from '../../enums/difficulty.enum';
 
 @Component({
   selector: 'app-history',
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
 export class HistoryComponent implements OnInit {
   games?: Game[];
   GameStatusesEnum = GameStatuses;
+  DifficultyEnum = Difficulty;
 
   constructor(private router: Router) { }
   ngOnInit(): void {

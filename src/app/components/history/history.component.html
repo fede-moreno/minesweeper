@@ -5,7 +5,7 @@
     <h1>History</h1>
   </div>
   <div class="History-container">
-    <table *ngIf="this.games && this.games.length else noHistory">
+    <table *ngIf="this.games?.length else noHistory">
       <thead>
       <tr>
         <th>Start Time</th>
@@ -17,11 +17,16 @@
       </thead>
       <tbody>
       <tr *ngFor="let game of games">
-        <td>{{ game.startDate | date:'MM-dd-YYYY hh:mm' }}</td>
-        <td>{{ game.endDate | date:'MM-dd-YYYY hh:mm a' }}</td>
-        <td>{{ game.difficulty }}</td>
-        <td>{{ game.elapsedTime }} seconds</td>
-        <td>{{ game.status === GameStatusesEnum.WON ? 'Won' : 'Lost' }}</td>
+        <td class="startDate">{{ game.startDate | date:'MM-dd-YYYY hh:mm a' }}</td>
+        <td class="endDate">{{ game.endDate | date:'MM-dd-YYYY hh:mm a' }}</td>
+          <ng-container [ngSwitch]="game.difficulty">
+            <td class="difficulty" *ngSwitchCase="DifficultyEnum.EASY">Easy</td>
+            <td class="difficulty" *ngSwitchCase="DifficultyEnum.MEDIUM">Medium</td>
+            <td class="difficulty" *ngSwitchCase="DifficultyEnum.HARD">Hard</td>
+            <td class="difficulty" *ngSwitchDefault>Custom</td>
+          </ng-container>
+        <td class="elapsedTime">{{ game.elapsedTime }} seconds</td>
+        <td class="status">{{ game.status === GameStatusesEnum.WON ? 'Won' : 'Lost' }}</td>
       </tr>
       </tbody>
     </table>

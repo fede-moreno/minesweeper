@@ -22,6 +22,27 @@
   }
 
   &-container {
+    table {
+      margin: 2rem auto;
+      background-color: #F6F6F6;
+      border: 1px solid #fff;
+      td, th {
+        padding: 0.2rem 0.6rem;
+      }
+
+      tbody {
+        tr {
+          td {
+            &.difficulty, &.status {
+              text-align: center;
+            }
+            &.startDate, &.endDate, &.elapsedTime {
+              text-align: right;
+            }
+          }
+        }
+      }
+    }
     .noHistory {
       text-align: center;
       padding: 2rem 0;
