@@ -40,7 +40,7 @@ export class GameComponent implements OnInit {
       // @ts-ignore
       const state: Game = this.router.getCurrentNavigation().extras.state;
       // @ts-ignore
-      this.board = new Board(0,0,0, state.board); // This could be improved by using a service
+      this.board = new Board(0, 0, 0, state.board); // This could be improved by using a service
       this.gameDifficulty = state.difficulty;
       this.previousSeconds = state.elapsedTime;
       this.gameStatus = GameStatuses.SAVED;
@@ -126,7 +126,7 @@ export class GameComponent implements OnInit {
   }
 
   private saveToLocalStorage(saveType: LocalstorageKeys): void {
-    const games: Game[] = JSON.parse(<string> localStorage.getItem(saveType));
+    const games: Game[] = JSON.parse(localStorage.getItem(saveType) as string);
     const currentGame: Game = {
       difficulty: this.gameDifficulty,
       status: this.gameStatus,

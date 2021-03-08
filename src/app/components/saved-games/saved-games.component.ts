@@ -19,7 +19,7 @@ export class SavedGamesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.games = JSON.parse(<string> localStorage.getItem(LocalstorageKeys.SAVED_GAMES));
+    this.games = JSON.parse(localStorage.getItem(LocalstorageKeys.SAVED_GAMES) as string);
     if (this.games && this.games.length > 1) {
       // Sorted by new
       this.games.reverse();
@@ -31,7 +31,7 @@ export class SavedGamesComponent implements OnInit {
    * @param game Game to be resumed
    */
   loadGame(game: Game): void {
-    this.router.navigate([AppPages.GAME], { state: game })
+    this.router.navigate([AppPages.GAME], { state: game });
   }
 
   /**

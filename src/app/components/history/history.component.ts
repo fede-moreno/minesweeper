@@ -16,15 +16,20 @@ export class HistoryComponent implements OnInit {
   GameStatusesEnum = GameStatuses;
   DifficultyEnum = Difficulty;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
+
   ngOnInit(): void {
-    this.games = JSON.parse(<string> localStorage.getItem(LocalstorageKeys.HISTORY));
+    this.games = JSON.parse(localStorage.getItem(LocalstorageKeys.HISTORY) as string);
     if (this.games && this.games.length > 1) {
       // Sorted by Difficulty and Elapsed time ascending
-      this.games.sort((a,b) => a.difficulty - b.difficulty || a.elapsedTime - b.elapsedTime)
+      this.games.sort((a, b) => a.difficulty - b.difficulty || a.elapsedTime - b.elapsedTime);
     }
   }
 
+  /**
+   *  Clears past games (history) from localstorage
+   */
   clearHistory(): void {
     localStorage.removeItem(LocalstorageKeys.HISTORY);
     this.games = [];
@@ -36,6 +41,4 @@ export class HistoryComponent implements OnInit {
   goHome(): void {
     this.router.navigate([AppPages.HOME]);
   }
-
-
 }
