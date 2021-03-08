@@ -1,0 +1,49 @@
+@import '../../shared.styles';
+.Home {
+  @include msp-background;
+
+  &-container {
+    text-align: center;
+    font-family: $msp-font-face-2;
+    h1 {
+      padding: ($msp-content-spacing-big * 2) 0;
+      letter-spacing: 0.3rem;
+      .mineIcon {
+        font-size: $msp-font-size-big;
+        animation: explode 5s linear 2s infinite;
+
+        @keyframes explode {
+          0% {
+            transform: translate(-50%, -33%);
+            opacity: 0.05;
+          }
+          25% {
+            opacity: 0.2;
+          }
+          50% {
+            transform: translate(-50%, 0);
+            opacity: 1;
+          }
+          100% {
+            opacity: 0;
+            color: $msp-color-error;
+          }
+        }
+      }
+    }
+    a {
+      display: block;
+      text-decoration: none;
+      font-size: $msp-font-size-big;
+      color: $msp-color-purple;
+      padding-bottom: $msp-content-spacing-small;
+      transition: 0.3s;
+      text-shadow: $msp-text-shadow;
+
+      &:hover {
+        font-size: $msp-font-size-huge;
+        text-shadow: $msp-text-shadow-highlight
+      }
+    }
+  }
+}

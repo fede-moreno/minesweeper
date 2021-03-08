@@ -1,0 +1,38 @@
+<div class="History">
+  <div class="History-header">
+    <button class="backButton" (click)="goHome()"><i class="fas fa-arrow-left"></i></button>
+    <button class="eraseButton" (click)="clearHistory()" [disabled]="!this.games?.length"><i class="fas fa-eraser" ></i></button>
+    <h1>History</h1>
+  </div>
+  <div class="History-container">
+    <table *ngIf="this.games?.length else noHistory">
+      <thead>
+      <tr>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Difficulty</th>
+        <th>Total time spent</th>
+        <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let game of games">
+        <td class="startDate">{{ game.startDate | date:'MM-dd-YYYY hh:mm a' }}</td>
+        <td class="endDate">{{ game.endDate | date:'MM-dd-YYYY hh:mm a' }}</td>
+          <ng-container [ngSwitch]="game.difficulty">
+            <td class="difficulty" *ngSwitchCase="DifficultyEnum.EASY">Easy</td>
+            <td class="difficulty" *ngSwitchCase="DifficultyEnum.MEDIUM">Medium</td>
+            <td class="difficulty" *ngSwitchCase="DifficultyEnum.HARD">Hard</td>
+            <td class="difficulty" *ngSwitchDefault>Custom</td>
+          </ng-container>
+        <td class="elapsedTime">{{ game.elapsedTime }} seconds</td>
+        <td class="status">{{ game.status === GameStatusesEnum.WON ? 'Won' : 'Lost' }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <ng-template #noHistory>
+        <h4 class="noHistory">No history available. Play some games!</h4>
+    </ng-template>
+  </div>
+
+</div>

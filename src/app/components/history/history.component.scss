@@ -1,0 +1,51 @@
+@import '../../shared.styles';
+
+.History {
+  @include msp-background;
+
+  &-header {
+    @include msp-header;
+
+    .eraseButton {
+      font-size: 2.4rem;
+      @include iconButton();
+      float: right;
+
+      &[disabled] {
+        cursor: default;
+        color: $msp-color-light-grey-active;
+        &:hover {
+          color: $msp-color-light-grey-active;
+        }
+      }
+    }
+  }
+
+  &-container {
+    table {
+      margin: $msp-content-spacing-big auto;
+      background-color: $msp-color-grey-2;
+      border: 0.1rem solid $msp-color-white;
+      td, th {
+        padding: 0.2rem 0.6rem;
+      }
+
+      tbody {
+        tr {
+          td {
+            &.difficulty, &.status {
+              text-align: center;
+            }
+            &.startDate, &.endDate, &.elapsedTime {
+              text-align: right;
+            }
+          }
+        }
+      }
+    }
+    .noHistory {
+      text-align: center;
+      padding: $msp-content-spacing-big 0;
+    }
+  }
+}

@@ -1,0 +1,72 @@
+@import '../../shared.styles';
+
+.Settings {
+  @include msp-background;
+
+  &-header {
+    @include msp-header;
+  }
+
+  &-container {
+    $_formSize: 20rem;
+    max-width: $_formSize;
+    margin: 0 auto;
+    padding-top: $msp-content-spacing-big;
+
+    form {
+      & > * {
+        display: block;
+        width: $_formSize;
+        margin-top: $msp-content-spacing-small;
+      }
+
+      select {
+        padding: $msp-content-spacing-small $msp-content-spacing;
+        font-weight: 500;
+      }
+
+      label {
+        text-shadow: $msp-text-shadow;
+        font-weight: 700;
+      }
+
+      input {
+        padding: $msp-content-spacing-small $msp-content-spacing;
+        &[readonly] {
+          background-color: $msp-color-light-grey-active;
+        }
+      }
+
+      button {
+        cursor: pointer;
+        padding: ($msp-content-spacing-small * 2) $msp-content-spacing;
+        font-weight: 500;
+        margin-top: $msp-content-spacing;
+
+        &.saveButton {
+          background-color: $msp-color-dark-grey;
+          color: $msp-color-light-grey;
+          margin-bottom: $msp-content-spacing-small * 2;
+          border: none;
+
+          &:hover {
+            background-color: $msp-color-dark-grey-active;
+          }
+
+          &[disabled] {
+            background: $msp-color-error;
+            cursor: default;
+            margin-top: $msp-content-spacing-small;
+          }
+        }
+      }
+
+      .errors {
+        color: $msp-color-error;
+        font-size: 1.4rem;
+        font-weight: 700;
+        text-shadow: $msp-text-shadow;
+      }
+    }
+  }
+}
