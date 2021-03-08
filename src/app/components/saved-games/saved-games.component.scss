@@ -1,17 +1,18 @@
 @import '../../shared.styles';
 
 .SavedGames {
-@include msp-background;
+  @include msp-background;
 
   &-header {
-  @include msp-header;
+    @include msp-header;
   }
 
   &-container {
     table {
       margin: $msp-content-spacing-big auto;
       background-color: #F6F6F6;
-      border: 1px solid #fff;
+      border: 0.1rem solid $msp-color-white;
+
       td, th {
         padding: $msp-content-spacing-small;
       }
@@ -22,6 +23,7 @@
             &.difficulty, &.status {
               text-align: center;
             }
+
             &.startDate, &.endDate, &.elapsedTime {
               text-align: right;
             }
@@ -35,10 +37,10 @@
         }
       }
     }
+
     .noSavedGames {
       text-align: center;
       padding: $msp-content-spacing-big 0;
     }
   }
-
 }

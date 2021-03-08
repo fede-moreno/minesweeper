@@ -6,10 +6,10 @@
     text-align: center;
     font-family: $msp-font-face-2;
     h1 {
-      padding: 4rem 0;
+      padding: ($msp-content-spacing-big * 2) 0;
       letter-spacing: 0.3rem;
       .mineIcon {
-        font-size: 2.4rem;
+        font-size: $msp-font-size-big;
         animation: explode 5s linear 2s infinite;
 
         @keyframes explode {
@@ -26,7 +26,7 @@
           }
           100% {
             opacity: 0;
-            color: #810101;
+            color: $msp-color-error;
           }
         }
       }
@@ -34,14 +34,14 @@
     a {
       display: block;
       text-decoration: none;
-      font-size: 2.4rem;
-      color: #390339;
-      padding-bottom: 0.6rem;
+      font-size: $msp-font-size-big;
+      color: $msp-color-purple;
+      padding-bottom: $msp-content-spacing-small;
       transition: 0.3s;
       text-shadow: $msp-text-shadow;
 
       &:hover {
-        font-size:3.8rem;
+        font-size: $msp-font-size-huge;
         text-shadow: $msp-text-shadow-highlight
       }
     }

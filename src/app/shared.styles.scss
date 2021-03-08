@@ -2,26 +2,43 @@
 $msp-font-face-1: 'Inter', sans-serif;
 $msp-font-face-2:  'DotGothic16', 'Times New Roman';
 $msp-color-error: #B00020;
+$msp-color-red-1: #FF6666;
+$msp-color-red-2: #FD0000;
+$msp-color-red-3: #810101;
+$msp-color-blue-1: #0000FD;
+$msp-color-blue-2: #010180;
+$msp-color-purple: #390339;
+$msp-color-green-1: #037D02;
+$msp-color-green-2: #027F80;
 $msp-color-dark-grey: rgb(22, 27, 34);
 $msp-color-dark-grey-active: rgba(22, 27, 34, 0.7);
 $msp-color-light-grey: rgb(240, 246, 252);
 $msp-color-light-grey-active: rgba(240, 246, 252, 0.7);
+$msp-color-white: #FFF;
+$msp-color-grey-1: #F5F4F5;
+$msp-color-grey-2: #F6F6F6;
+$msp-color-grey-3: #BBB;
+$msp-color-grey-4: #999;
+$msp-color-grey-5: #717171;
+$msp-color-black: #000;
 $msp-content-spacing-big: 2rem;
 $msp-content-spacing: 1.2rem;
 $msp-content-spacing-small: 0.6rem;
 $msp-content-spacing-tiny: 0.2rem;
 $msp-text-shadow: 1px 1px 4px #6a6a6a;
 $msp-text-shadow-highlight: 4px 4px 4px #414141;
+$msp-font-size-big: 2.4rem;
+$msp-font-size-huge: 3.8rem;
 
 // Mixins
 @mixin msp-background {
   height: 100vh;
   background-color: white;
   background-image:
-    repeating-linear-gradient(-45deg, transparent, transparent 33%, #027F80 0%, #027F80 50%),
+    repeating-linear-gradient(-45deg, transparent, transparent 33%, $msp-color-green-2 0%, $msp-color-green-2 50%),
     repeating-linear-gradient(-45deg, transparent, transparent 33%, white 0%, white 50%),
     repeating-linear-gradient(-45deg, transparent, transparent 33%, white 0%, white 50%),
-    repeating-linear-gradient(45deg, transparent, transparent 33%, #027F80 0%, #027F80 50%);
+    repeating-linear-gradient(45deg, transparent, transparent 33%, $msp-color-green-2 0%, $msp-color-green-2 50%);
   background-size: 4px 4px;
   background-position: -1px, 2px, 1px 1px;
 }
@@ -61,7 +78,7 @@ $msp-text-shadow-highlight: 4px 4px 4px #414141;
   }
 
   h1 {
-    font-size: 2.4rem;
+    font-size: $msp-font-size-big;
     text-align: center;
   }
 }

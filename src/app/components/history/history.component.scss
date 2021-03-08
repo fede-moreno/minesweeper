@@ -23,9 +23,9 @@
 
   &-container {
     table {
-      margin: 2rem auto;
-      background-color: #F6F6F6;
-      border: 1px solid #fff;
+      margin: $msp-content-spacing-big auto;
+      background-color: $msp-color-grey-2;
+      border: 0.1rem solid $msp-color-white;
       td, th {
         padding: 0.2rem 0.6rem;
       }
@@ -45,7 +45,7 @@
     }
     .noHistory {
       text-align: center;
-      padding: 2rem 0;
+      padding: $msp-content-spacing-big 0;
     }
   }
 }
