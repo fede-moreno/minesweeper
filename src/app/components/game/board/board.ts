@@ -2,7 +2,6 @@ import { Tile } from '../tile/tile';
 import { TileStatuses } from '../enums/tile-statuses.enum';
 import { NEIGHBOR_TILES } from '../consts/neighbor-tiles.const';
 import { GameStatuses } from '../enums/game-statuses.enum';
-import { Game } from '../models/game.model';
 
 export class Board {
   tiles: Tile[][] = [];
@@ -30,7 +29,10 @@ export class Board {
 
   }
 
-
+  /**
+   * Gets a random x and y for each mine and assigns them to their corresponding tile
+   * @param minesQuantity number of mines that are going to be in the board
+   */
   setMines(minesQuantity: number): void {
     // TODO Improve edge cases for small boards
     for (let mine = 0; mine < minesQuantity; mine++) {
@@ -40,6 +42,11 @@ export class Board {
     }
   }
 
+  /**
+   * Checks for every existing neighbor of each tile how many of them have mines and saves that number as proximityMines
+   * @param width number of columns that the board has
+   * @param height number of rows that the board has
+   */
   calculateProximity(width: number, height: number): void  {
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
@@ -59,7 +66,13 @@ export class Board {
     }
   }
 
-
+  /**
+   * Reveals the clicked mine and returns the new game status
+   * OPEN + has mine = explodes and reveals all the mines
+   * OPEN + no mine = reveals the mine, and his neighbors if it has 0 proximity mines.
+   * @param tile clicked mine to be revealed
+   * @returns new game status after the mine has been clicked
+   */
   revealTile(tile: Tile): GameStatuses {
     if (tile.status === TileStatuses.OPEN) {
       if (tile.hasMine) {
@@ -79,6 +92,10 @@ export class Board {
     return GameStatuses.UNDERWAY;
   }
 
+  /**
+   * For every existing neighbor triggers the revealTile
+   * @param tile center tile
+   */
   revealNeighbors(tile: Tile): void {
     NEIGHBOR_TILES.forEach((neighbor) => {
       const dyColumn = this.tiles[tile.y + neighbor[0]];
@@ -88,6 +105,9 @@ export class Board {
     });
   }
 
+  /**
+   * Displays all mines when the user loses.
+   */
   revealAllMines(): void {
     for (const row of this.tiles) {
       for (const tile of row) {
@@ -98,6 +118,10 @@ export class Board {
     }
   }
 
+  /**
+   * Adds or removes the flag from the tile, and updates the "mines to flag" counter
+   * @param tile Cell to be flagged/unflagged
+   */
   flagTile(tile: Tile): void {
     if (tile.status === TileStatuses.OPEN) {
       this.minesToFlag--;
