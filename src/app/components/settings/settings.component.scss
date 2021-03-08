@@ -8,15 +8,16 @@
   }
 
   &-container {
-    max-width: 200px;
+    $_formSize: 20rem;
+    max-width: $_formSize;
     margin: 0 auto;
-    padding-top: 2rem;
+    padding-top: $msp-content-spacing-big;
 
     form {
       & > * {
         display: block;
-        width: 200px;
-        margin-top: 0.6rem;
+        width: $_formSize;
+        margin-top: $msp-content-spacing-small;
       }
 
       select {
@@ -32,7 +33,7 @@
       input {
         padding: $msp-content-spacing-small $msp-content-spacing;
         &[readonly] {
-          background-color: #e9e9e9;
+          background-color: $msp-color-light-grey-active;
         }
       }
 
