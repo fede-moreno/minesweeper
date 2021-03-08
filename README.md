@@ -1,4 +1,4 @@
-# Minesweeper in Angular
+# Minesweeper in Angular - https://minesweeper-pro.herokuapp.com/
 
 ##Description
 * Create a version of the classic game of Minesweeper in your prefered stack.
